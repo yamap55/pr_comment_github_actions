@@ -1,8 +1,7 @@
 name: PR Comment Sample
-# on:
-#   pull_request:
-#     types: [opened]
-on: pull_request
+on:
+  pull_request:
+    types: [opened]
 jobs:
   pr_comment_sample:
     runs-on: ubuntu-latest
