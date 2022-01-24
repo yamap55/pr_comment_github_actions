@@ -1,0 +1,25 @@
+name: PR Comment Sample
+on:
+  pull_request:
+    types: [opened]
+jobs:
+  pr_comment_sample:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v5
+        env:
+          BRANCH_NAME: ${{github.head_ref}}
+          TASK_PREFIX: HOGEHUGAPIYO
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const {BRANCH_NAME, TASK_PREFIX} = process.env
+            const m = BRANCH_NAME.match(new RegExp(`(${TASK_PREFIX}-\\d+)$`))
+            if (!m) { return }
+            const taskName = m[0]
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `[${taskName}](http://example.com/${taskName})`
+            })
