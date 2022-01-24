@@ -23,13 +23,14 @@ jobs:
           BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
           GITHUB_REF_NAME: ${GITHUB_REF_NAME}
           GITHUB_REF: ${GITHUB_REF}
+          GITHUB_HEAD_REF: ${{github.head_ref}}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const { BRANCH_NAME, GITHUB_REF_NAME, GITHUB_REF } = process.env
+            const { BRANCH_NAME, GITHUB_REF_NAME, GITHUB_REF, GITHUB_HEAD_REF } = process.env
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${BRANCH_NAME}\n${GITHUB_REF_NAME}\n${GITHUB_REF}`
+              body: `${BRANCH_NAME}\n${GITHUB_REF_NAME}\n${GITHUB_REF}\n${GITHUB_HEAD_REF}`
             })
