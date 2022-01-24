@@ -10,12 +10,11 @@ jobs:
       - uses: actions/checkout@v1
       - name: Extract branch name
         shell: bash
-        run: echo "::set-output name=branch::${GITHUB_REF}"
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
         id: extract_branch
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v1
         with:
           message: |
-            [link sample](http://example.com)
-            branch: "${{ steps.extract_branch.outputs.branch }}"
+            [link sample](http://example.com/${{ steps.extract_branch.outputs.branch }})
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
