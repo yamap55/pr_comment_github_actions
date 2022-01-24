@@ -14,7 +14,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const { BRANCH_NAME } = process.env
-            if (!BERANCH_NAME.match(/(HOGEHUGAPIYO-\d+)$/)) { return }
+            if (!BRANCH_NAME.match(/(HOGEHUGAPIYO-\d+)$/)) { return }
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
