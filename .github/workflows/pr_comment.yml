@@ -20,6 +20,10 @@ jobs:
             [$GITHUB_REF_NAME](GITHUB_REF_NAME)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/github-script@v5
+        env:
+          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
+          GITHUB_REF_NAME: ${GITHUB_REF_NAME}
+          GITHUB_REF: ${GITHUB_REF}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -27,5 +31,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '${GITHUB_REF_NAME}\n${GITHUB_REF}'
+              body: '${BRANCH_NAME}\n${GITHUB_REF_NAME}\n${GITHUB_REF}'
             })
