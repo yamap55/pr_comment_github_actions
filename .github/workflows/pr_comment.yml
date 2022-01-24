@@ -17,4 +17,5 @@ jobs:
         with:
           message: |
             [link sample](http://example.com/${{ steps.extract_branch.outputs.branch }})
+            [$GITHUB_REF_NAME](GITHUB_REF_NAME)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
