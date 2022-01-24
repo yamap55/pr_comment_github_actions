@@ -1,0 +1,2 @@
+# pr_comment_github_actions
+PRにGitHub Actionsでコメントをする
