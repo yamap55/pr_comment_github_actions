@@ -1,7 +1,8 @@
 name: PR Comment Sample
-on:
-  pull_request:
-    types: [opened]
+# on:
+#   pull_request:
+#     types: [opened]
+on: pull_request
 jobs:
   pr_comment_sample:
     runs-on: ubuntu-latest
@@ -13,7 +14,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const { BRANCH_NAME } = process.env
-            if !BERANCH_NAME.match(/(HOGEHUGAPIYO-\d+)$/) { return }
+            if (!BERANCH_NAME.match(/(HOGEHUGAPIYO-\d+)$/)) { return }
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
