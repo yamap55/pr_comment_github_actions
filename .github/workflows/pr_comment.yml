@@ -11,5 +11,5 @@ jobs:
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v1
         with:
-          message: 'Example of message !'
+          message: '[link sample](http://example.com)'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
