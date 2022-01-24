@@ -8,8 +8,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Extract branch name
+        shell: bash
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+        id: extract_branch
       - name: Comment PR
         uses: thollander/actions-comment-pull-request@v1
+        env:
+          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
         with:
-          message: '[link sample](http://example.com)'
+          message: '[link sample](http://example.com)\nbranch: ${BRANCH_NAME}'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
