@@ -6,31 +6,17 @@ jobs:
   pr_comment_sample:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - name: Extract branch name
-        shell: bash
-        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
-        id: extract_branch
-      - name: Comment PR
-        uses: thollander/actions-comment-pull-request@v1
-        with:
-          message: |
-            [link sample](http://example.com/${{ steps.extract_branch.outputs.branch }})
-            [$GITHUB_REF_NAME](GITHUB_REF_NAME)
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: actions/github-script@v5
         env:
-          BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
-          GITHUB_REF_NAME: ${GITHUB_REF_NAME}
-          GITHUB_REF: ${GITHUB_REF}
-          GITHUB_HEAD_REF: ${{github.head_ref}}
+          BRANCH_NAME: ${{github.head_ref}}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const { BRANCH_NAME, GITHUB_REF_NAME, GITHUB_REF, GITHUB_HEAD_REF } = process.env
+            const { BRANCH_NAME } = process.env
+            if !BERANCH_NAME.match(/(HOGEHUGAPIYO-\d+)$/) { return }
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${BRANCH_NAME}\n${GITHUB_REF_NAME}\n${GITHUB_REF}\n${GITHUB_HEAD_REF}`
+              body: `[${BRANCH_NAME}](http://example.com/${BRANCH_NAME})`
             })
