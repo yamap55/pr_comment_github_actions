@@ -19,3 +19,13 @@ jobs:
             [link sample](http://example.com/${{ steps.extract_branch.outputs.branch }})
             [$GITHUB_REF_NAME](GITHUB_REF_NAME)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${GITHUB_REF_NAME}\n${GITHUB_REF}'
+            })
