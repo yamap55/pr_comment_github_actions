@@ -17,5 +17,5 @@ jobs:
         env:
           BRANCH_NAME: ${{ steps.extract_branch.outputs.branch }}
         with:
-          message: '[link sample](http://example.com)\nbranch: ${BRANCH_NAME}'
+          message: '[link sample](http://example.com)\\nbranch: $BRANCH_NAME'
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
